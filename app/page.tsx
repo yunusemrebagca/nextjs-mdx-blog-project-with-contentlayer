@@ -1,95 +1,75 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import Image from "next/image";
+import styles from "./page.module.scss";
+
+import { allPosts } from "contentlayer/generated";
+import { compareDesc, format } from "date-fns";
+import Link from "next/link";
+import { Hero } from "@/components/Hero";
+import { useEffect, useState } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { Header } from "@/components/Header";
+import { useGlobalContext } from "../context/store";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const { currentPage, setCurrentPage } = useGlobalContext();
+  const itemPerPage = 1;
+  const pageCount = Math.ceil(allPosts.length / itemPerPage);
+
+  const lastItem = currentPage * itemPerPage;
+  const firstItem = lastItem - itemPerPage;
+
+  const posts = allPosts.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
+
+  const elementItems = [];
+
+  for (let i = 1; i <= pageCount; i++) {
+    elementItems.push(
+      <div
+        className={currentPage == i ? styles.active : ""}
+        onClick={() => setCurrentPage(i)}
+        key={i}
+        style={{ cursor: "pointer", padding: "1rem" }}
+      >
+        <Link href={`/?page=${i}`}>Page {i}</Link>
+      </div>
+    );
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    <>
+      <Hero title="" />
+      <main className={styles.main}>
+        <h2>Posts</h2>
+        <section className={styles.cards}>
+          {posts.slice(firstItem, lastItem).map((post, idx) => (
+            <article className={styles.card} key={idx}>
+              <div className={styles.article__right}>
+                <div className={styles.article__title}>
+                  <Link href={post._raw.flattenedPath.split("/").pop() || ""}>
+                    <p>{post._raw.flattenedPath.split("/").pop()}</p>
+                    <h4>{post.title}</h4>
+                  </Link>
+                  <p>{format(new Date(post.date), "yyyy-MM-dd")}</p>
+                </div>
+                <p className={styles.clamp}>{post.description}</p>
+              </div>
+              <Image
+                alt={post.description}
+                src={post.imageUrl}
+                width={300}
+                height={300}
+                style={{ objectFit: "cover" }}
+              ></Image>
+            </article>
+          ))}
+        </section>
+        <div className={styles.pagination}>{elementItems}</div>
+      </main>
+    </>
+  );
 }

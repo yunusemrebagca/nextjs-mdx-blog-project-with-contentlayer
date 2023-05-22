@@ -1,0 +1,25 @@
+@use "../styles/variables.scss";
+
+.header {
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin: 2rem 2rem 0 2rem;
+  background-color: variables.$color-primary;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+  &__nav ul {
+    color: white;
+    display: flex;
+    gap: 2rem;
+    font-weight: 300;
+  }
+  font-size: medium;
+}
+
+.button {
+  color: white;
+  padding: 1rem;
+  border-radius: 0.2rem;
+  background-color: rgba(white, $alpha: 0.1);
+}
