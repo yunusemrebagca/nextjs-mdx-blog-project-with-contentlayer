@@ -1,6 +1,5 @@
 {
   "name": "my-portfolio-project",
-  "homepage": "https://yunusemrebagca.github.io/nextjs-mdx-blog-project-with-contentlayer/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,7 +16,6 @@
     "date-fns": "^2.30.0",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
-    "gh-pages": "^5.0.0",
     "mdx-bundler": "^9.2.1",
     "next": "13.4.3",
     "next-contentlayer": "^0.3.2",
