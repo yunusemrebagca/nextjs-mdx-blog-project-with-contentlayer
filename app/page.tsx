@@ -15,7 +15,7 @@ import { useGlobalContext } from "../context/store";
 export default function Home() {
   const searchParams = useSearchParams();
   const { currentPage, setCurrentPage } = useGlobalContext();
-  const itemPerPage = 1;
+  const itemPerPage = 2;
   const pageCount = Math.ceil(allPosts.length / itemPerPage);
 
   const lastItem = currentPage * itemPerPage;

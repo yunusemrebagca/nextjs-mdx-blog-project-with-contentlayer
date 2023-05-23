@@ -331,7 +331,7 @@ if not lane_change_left and not lane_change_right and len(
 ```
 
 We use the value `170` as a threshold for the difference between the current `ρ` values and the average `ρ` values. If the difference is greater than `170`, we assume that the car is changing lanes.  
-When a lane change is detected, we discard the previous left and right lines and the previous `x` values, since they are no longer relevant. Also, we reset the `lane_change_frames_shown{:python}` variable, which keeps track of how many frames have passed since the message was displayed.
+When a lane change is detected, we discard the previous left and right lines and the previous `x` values, since they are no longer relevant. Also, we reset the `lane_change_frames_shown {:python}` variable, which keeps track of how many frames have passed since the message was displayed.
 
 Finally, we use the `putText{:python}` function to display a message for 60 frames when the car is changing lanes.
 

@@ -13,7 +13,9 @@ export const Header = () => {
   const { setCurrentPage } = useGlobalContext();
   return (
     <header className={styles.header}>
-      <Image src={logo} alt="Site logo" />
+      <Link onClick={() => setCurrentPage(1)} href="/">
+        <Image src={logo} alt="Site logo" />
+      </Link>
       <nav className={styles.header__nav}>
         <ul>
           <li>

@@ -1,4 +1,5 @@
 @use "../styles/variables.scss";
+@use "../styles/breakpoints.scss" as bp;
 
 .header {
   border-radius: 0.5rem 0.5rem 0 0;
@@ -13,8 +14,25 @@
     display: flex;
     gap: 2rem;
     font-weight: 300;
+    @include bp.md {
+      display: none;
+    }
+  }
+  img {
+    height: auto;
   }
   font-size: medium;
+  @include bp.md {
+    margin: 1rem 1rem 0 1rem;
+  }
+
+  @include bp.sm {
+    padding: 2rem 2rem;
+  }
+
+  @include bp.xs {
+    padding: 1rem 1rem;
+  }
 }
 
 .button {
@@ -22,4 +40,9 @@
   padding: 1rem;
   border-radius: 0.2rem;
   background-color: rgba(white, $alpha: 0.1);
+
+  @include bp.md {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
 }
