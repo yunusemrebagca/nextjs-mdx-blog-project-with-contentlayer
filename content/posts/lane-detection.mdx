@@ -107,11 +107,11 @@ Let's break this down:
 4. **Find edges**: We use the Canny edge detection algorithm to find the edges of the lane markings. More information about Canny can be found [here](https://en.wikipedia.org/wiki/Canny_edge_detector).
 5. **Isolate**: We know that the lane markings are always certain region of the image, so we can isolate this region. We do this by creating a trapezoid mask and applying it to the image.
 
-![Trapezoid mask {{ w: 700, h: 393, cap: "The region where lane marking are relevant" }}](/images/computer-vision/lane-detection/trapezoid-mask.webp)
+![Trapezoid mask {{ w: 700, h: 393, cap: "The region where lane marking are relevant" }}](https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 Let’s see how our frame changes with each step:
 
-![Preprocessing steps {{ w: 700, h: 725 }}](/images/computer-vision/lane-detection/preprocessing-steps.webp)
+![Preprocessing steps {{ w: 700, h: 725 }}](https://images.unsplash.com/photo-1684779847639-fbcc5a57dfe9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 In the final step, we can see the edges of the lane markings. Now we can use the Hough Transform to extract their coordinates so we can draw them on the frame.
 
@@ -124,7 +124,7 @@ However, this representation has one major drawback: vertical lines have an infi
 Since we need the ability to detect vertical lines, we have to use a different system.  
 The Hough Transform uses the **polar coordinate system** to represent lines. In this system, a line is represented by the equation `ρ = xcosθ + ysinθ`, where `ρ` is the distance from the origin and `θ` is the angle between the `ρ` line and the x-axis (measured in radians).
 
-![Polar coordinate system {{ w: 700, h: 393, cap: "The polar coordinate system" }}](/images/computer-vision/lane-detection/polar-coordinates.webp)
+![Polar coordinate system {{ w: 700, h: 393, cap: "The polar coordinate system" }}](https://images.unsplash.com/photo-1684750582572-d69bce90ffa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 Left lane markings are either vertical or slanted to the right, so in this representation, their **θ** will be between `0` and `7π/18` radians (70 degrees). Right lane markings are either vertical or slanted to the left, so their **θ** will be between `11π/18` radians (110 degrees) and `π` radians (180 degrees).  
 The lines with **θ** between `7π/18` and `11π/18` radians are horizontal lines, which are not lane markings and can be ignored.  
@@ -207,7 +207,7 @@ This creates a new image that is the same size as the frame, but with all pixels
 
 Before we can draw our lines, we need to convert them from polar coordinates to cartesian coordinates. We can do this using simple trigonometry:
 
-![Polar to cartesian coordinates {{ w: 600, h: 532, cap: "Converting polar coordinates to cartesian coordinates" }}](/images/computer-vision/lane-detection/polar-to-cartesian.webp)
+![Polar to cartesian coordinates {{ w: 600, h: 532, cap: "Converting polar coordinates to cartesian coordinates" }}](https://images.unsplash.com/photo-1684750582572-d69bce90ffa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 This gives us the coordinates of the line’s origin. We can then extend the line in both directions to cover the entire frame. In this case, we are extending the line 4000 pixels in each direction.
 
@@ -231,7 +231,7 @@ x3, y3, x4, y4 = get_points(right_rho, right_theta)
 
 If we were to draw the lines now, they would extend too far and go beyond the road. Here's what it would look like:
 
-![Lane lines extend too far {{ w: 700, h: 393, cap: "Lines extend beyond the road and need to be cropped" }}](/images/computer-vision/lane-detection/lines-too-long.webp)
+![Lane lines extend too far {{ w: 700, h: 393, cap: "Lines extend beyond the road and need to be cropped" }}](https://images.unsplash.com/photo-1684943210712-7aa4b85b4474?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 To fix this, we crop the top of the lines to a certain `y` value, in this case, `1150`. We also crop the bottom of the lines to the bottom of the frame, which has a `y` value of `2200`.
 
@@ -257,7 +257,7 @@ Here we are decreasing the `y` value of the top of the lines to `1150` and using
 
 Here is what the lines look like after cropping:
 
-![Cropped lane lines {{ w: 700, h: 393, cap: "Lines are cropped to fit the road" }}](/images/computer-vision/lane-detection/lines-cropped.webp)
+![Cropped lane lines {{ w: 700, h: 393, cap: "Lines are cropped to fit the road" }}](https://images.unsplash.com/photo-1684943210712-7aa4b85b4474?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 To draw the lines, we use the `line{:python}` function, which takes the image to draw on, the start and end points, the color, and the line width as arguments.
 
@@ -286,7 +286,7 @@ frame_with_lane_markings = cv2.addWeighted(
 
 Here is what the final result looks like:
 
-![Frame with lane markings {{ w: 700, h: 393, cap: "Frame with lane markings" }}](/images/computer-vision/lane-detection/frame-with-lane-markings.webp)
+![Frame with lane markings {{ w: 700, h: 393, cap: "Frame with lane markings" }}](https://images.unsplash.com/photo-1684943210712-7aa4b85b4474?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80)
 
 ---
 
@@ -352,6 +352,5 @@ if lane_change_right or lane_change_left:
 <iframe
   src="https://www.youtube.com/embed/VzFcshSwI1E"
   title="YouTube video player"
-  className="w-full rounded"
-  style={{ aspectRatio: "16/9" }}
+  style={{ aspectRatio: "16/9", width: "100%", marginBlock: "2rem" }}
 />

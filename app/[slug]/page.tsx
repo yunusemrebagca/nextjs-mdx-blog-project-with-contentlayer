@@ -54,6 +54,12 @@ const mdxComponents: MDXComponents = {
       <br />
     </>
   ),
+  strong: (props) => (
+    <strong className={s.strong} {...props}>
+      {props.children}
+    </strong>
+  ),
+  iframe: (props) => <iframe {...props} className={s.iframe} />,
 };
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -71,10 +77,8 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <Hero title={post.title} />
+      <Hero title={post.title} postImage={post.imageUrl} />
       <div className={s.content}>
-        {/* Some code ... */}
-
         <MDXContent components={mdxComponents} />
       </div>
     </>

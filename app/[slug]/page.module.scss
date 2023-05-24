@@ -1,3 +1,5 @@
+@use "../../styles/breakpoints.scss" as bp;
+
 .content {
   max-width: 800px;
   margin-inline: auto;
@@ -20,11 +22,19 @@
 
 .h2 {
   font-size: 2rem;
+  margin-top: 1rem;
 }
 
 .img {
-  width: 100%;
+  width: 120%;
+  margin-left: -10%;
   object-fit: contain;
+  border-radius: 2rem;
+  max-height: 700px;
+
+  @include bp.sm {
+    border-radius: unset;
+  }
 }
 
 .a {
@@ -53,4 +63,8 @@
 
 .hr {
   margin-block: 3rem;
+}
+
+.strong {
+  font-weight: 600;
 }
