@@ -9,13 +9,39 @@
   align-items: center;
   justify-content: space-between;
   padding: 2rem 3rem;
-  &__nav ul {
-    color: white;
-    display: flex;
-    gap: 2rem;
-    font-weight: 300;
-    @include bp.md {
-      display: none;
+  &__nav {
+    ul {
+      color: white;
+      display: flex;
+      gap: 2rem;
+      font-weight: 300;
+    }
+    &.active {
+      position: fixed;
+
+      right: -300px;
+      top: 0;
+
+      height: 100vh;
+      background-color: rgba(128, 0, 128, 0.801);
+      width: 100%;
+      max-width: 300px;
+
+      transition: all ease 500ms;
+      overflow-y: scroll;
+      ul {
+        flex-direction: column;
+
+        padding-top: 5rem;
+
+        li {
+          padding-inline: 4rem;
+          padding-block: 2rem;
+        }
+      }
+      &.open {
+        right: 0px;
+      }
     }
   }
   img {
@@ -44,5 +70,6 @@
   @include bp.md {
     padding: 0.8rem;
     font-size: 1rem;
+    margin: 2rem;
   }
 }

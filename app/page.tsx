@@ -50,11 +50,13 @@ export default function Home() {
             <article className={styles.card} key={idx}>
               <div className={styles.article__right}>
                 <div className={styles.article__title}>
+                  <p className={styles.tags}>
+                    {post._raw.flattenedPath.split("/").pop()}
+                  </p>
                   <Link href={post._raw.flattenedPath.split("/").pop() || ""}>
-                    <p>{post._raw.flattenedPath.split("/").pop()}</p>
                     <h4>{post.title}</h4>
                   </Link>
-                  <p>{format(new Date(post.date), "yyyy-MM-dd")}</p>
+                  <p>{format(new Date(post.date), "EEEE, MMMM do, yyyy")}</p>
                 </div>
                 <p className={styles.clamp}>{post.description}</p>
               </div>
