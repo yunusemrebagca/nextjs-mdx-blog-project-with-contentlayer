@@ -22,7 +22,7 @@ export const Header = () => {
   let menuRef = useRef();
 
   useEffect(() => {
-    let handler = (e) => {
+    let handler = (e: Event) => {
       if (!menuRef.current.contains(e.target)) {
         setToggleSideNav(false);
       }
