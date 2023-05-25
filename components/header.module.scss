@@ -18,7 +18,7 @@
     }
     &.active {
       position: fixed;
-
+      z-index: 11;
       right: -300px;
       top: 0;
 
@@ -28,6 +28,28 @@
       max-width: 300px;
 
       transition: all ease 500ms;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 2px grey;
+        border-radius: 10px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: rgb(7, 7, 7);
+        border-radius: 10px;
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #009eb3;
+      }
+
       overflow-y: scroll;
       ul {
         flex-direction: column;
