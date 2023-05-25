@@ -19,10 +19,10 @@ export const Header = () => {
 
   const mediumSize = useMediaQuery("(max-width: 860px)");
 
-  let menuRef = useRef();
+  let menuRef = useRef<HTMLInputElement>();
 
   useEffect(() => {
-    let handler = (e: Event) => {
+    let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
         setToggleSideNav(false);
       }
