@@ -31,7 +31,10 @@ const mdxComponents: MDXComponents = {
   // Add a custom component.
   p: ({ children }) => <p className={s.paragraph}>{children}</p>,
   h2: ({ children }) => (
-    <h2 id={parameterize(children)} className={s.h2}>
+    <h2
+      id={parameterize(typeof children === "string" ? children : "")}
+      className={s.h2}
+    >
       {children}
     </h2>
   ),
