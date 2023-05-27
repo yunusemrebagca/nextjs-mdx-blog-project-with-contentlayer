@@ -1,5 +1,3 @@
-"use client";
-
 // app/posts/[slug]/page.tsx
 import { allPosts } from "contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
@@ -12,8 +10,7 @@ import "highlight.js/scss/arta.scss";
 
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
-import clsx from "clsx";
-import { useState } from "react";
+import { Toc } from "@/components/Toc";
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -114,27 +111,10 @@ export default function Page({ params }: { params: { slug: string } }) {
   // Parse the MDX file via the useMDXComponent hook.
   const MDXContent = useMDXComponent(post.body.code);
 
-  const [toggleToc, setToggleToc] = useState(false);
-
   return (
     <>
       <Hero title={post.title} postImage={post.imageUrl} />
-      <div className={clsx(s.toc__div, { [s.active]: toggleToc })}>
-        <ul className={s.toc}>
-          {headings.map((heading, idx) => {
-            return (
-              <li key={idx}>
-                <Link href={`/${params.slug}/#${parameterize(heading.text)}`}>
-                  {heading.text}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <div className={s.button} onClick={() => setToggleToc(!toggleToc)}>
-        Table of Contents
-      </div>
+      <Toc slug={params.slug} headings={headings} />
       <div className={s.content}>
         <MDXContent components={mdxComponents} />
       </div>
