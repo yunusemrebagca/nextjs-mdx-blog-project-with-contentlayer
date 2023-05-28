@@ -3,16 +3,20 @@
 import React, { useRef, useState } from "react";
 import parameterize from "parameterize-js";
 import clsx from "clsx";
-import Link from "next/link";
+
 import s from "../app/[slug]/page.module.scss";
 import { useMousedown } from "@/hooks/useMousedown";
 
 export const Toc = ({ slug, headings }) => {
   const [toggleToc, setToggleToc] = useState(false);
   let tocRef = useRef<HTMLInputElement>();
+  let buttonRef = useRef<HTMLInputElement>();
 
   let handler = (e) => {
-    if (!tocRef.current.contains(e.target)) {
+    if (
+      !tocRef.current.contains(e.target) &&
+      !buttonRef.current.contains(e.target)
+    ) {
       setToggleToc(false);
     }
   };
@@ -25,7 +29,10 @@ export const Toc = ({ slug, headings }) => {
         <ul className={s.toc}>
           {headings.map((heading, idx) => {
             return (
-              <li key={idx}>
+              <li
+                key={idx}
+                style={heading.level == 3 ? { marginLeft: "1rem" } : {}}
+              >
                 <a
                   href={`/${slug}#${parameterize(heading.text)}`}
                   onClick={() => {
@@ -39,7 +46,11 @@ export const Toc = ({ slug, headings }) => {
           })}
         </ul>
       </div>
-      <div className={s.button} onClick={() => setToggleToc((tTs) => !tTs)}>
+      <div
+        ref={buttonRef}
+        className={s.button}
+        onClick={() => setToggleToc(!toggleToc)}
+      >
         Table of Contents
       </div>
     </>

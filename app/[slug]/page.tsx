@@ -35,6 +35,14 @@ const mdxComponents: MDXComponents = {
       {children}
     </h2>
   ),
+  h3: ({ children }) => (
+    <h3
+      id={parameterize(typeof children === "string" ? children : "")}
+      className={s.h3}
+    >
+      {children}
+    </h3>
+  ),
   img: (props) => <img className={s.img} {...props}></img>,
   li: (props) => (
     <li className={s.li} {...props}>

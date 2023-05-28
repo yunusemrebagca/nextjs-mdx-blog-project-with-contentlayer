@@ -67,6 +67,11 @@
   margin-top: 1rem;
 }
 
+.h3 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
 .img {
   width: 120%;
   margin-left: -10%;
@@ -91,11 +96,11 @@
 }
 
 .ul {
-  list-style-type: none;
+  list-style-type: circle;
 }
 
 .ol {
-  list-style-type: none;
+  list-style-type: decimal;
 }
 
 .li {
