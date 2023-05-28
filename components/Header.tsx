@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import logo from "assets/post-title.png";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import { clsx } from "clsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
+import { useMousedown } from "@/hooks/useMousedown";
 
 export const Header = () => {
   const router = useRouter();
@@ -21,17 +22,13 @@ export const Header = () => {
 
   let menuRef = useRef<HTMLInputElement>();
 
-  useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setToggleSideNav(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  });
+  let handler = (e) => {
+    if (!menuRef.current.contains(e.target)) {
+      setToggleSideNav(false);
+    }
+  };
+
+  useMousedown(handler);
 
   return (
     <header className={styles.header}>

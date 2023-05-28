@@ -7,13 +7,9 @@ import { allPosts } from "contentlayer/generated";
 import { compareDesc, format } from "date-fns";
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
-import { useEffect, useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Header } from "@/components/Header";
 import { useGlobalContext } from "../context/store";
 
 export default function Home() {
-  const searchParams = useSearchParams();
   const { currentPage, setCurrentPage } = useGlobalContext();
   const itemPerPage = 2;
   const pageCount = Math.ceil(allPosts.length / itemPerPage);
