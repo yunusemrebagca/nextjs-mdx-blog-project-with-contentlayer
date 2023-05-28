@@ -26,20 +26,20 @@ export const Toc = ({ slug, headings }) => {
           {headings.map((heading, idx) => {
             return (
               <li key={idx}>
-                <Link
+                <a
                   href={`/${slug}#${parameterize(heading.text)}`}
                   onClick={() => {
                     setToggleToc(false);
                   }}
                 >
                   {heading.text}
-                </Link>
+                </a>
               </li>
             );
           })}
         </ul>
       </div>
-      <div className={s.button} onClick={() => setToggleToc(!toggleToc)}>
+      <div className={s.button} onClick={() => setToggleToc((tTs) => !tTs)}>
         Table of Contents
       </div>
     </>
