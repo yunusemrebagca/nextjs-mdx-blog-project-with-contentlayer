@@ -1,49 +1,54 @@
-"use client";
-
-import Image from "next/image";
-import styles from "./page.module.scss";
-
+// app/posts/[slug]/page.tsx
 import { allPosts } from "contentlayer/generated";
-import { compareDesc, format } from "date-fns";
-import Link from "next/link";
-import { Hero } from "@/components/Hero";
-import { useGlobalContext } from "../context/store";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import { notFound } from "next/navigation";
+import styles from "../../page.module.scss";
 import parameterize from "parameterize-js";
+import { compareDesc, format } from "date-fns";
 
-export default function Home() {
-  const { currentPage, setCurrentPage } = useGlobalContext();
-  const itemPerPage = 2;
-  const pageCount = Math.ceil(allPosts.length / itemPerPage);
+import Link from "next/link";
+import Image from "next/image";
+import { Hero } from "@/components/Hero";
 
-  const lastItem = currentPage * itemPerPage;
-  const firstItem = lastItem - itemPerPage;
+export async function generateStaticParams() {
+  const allTags = [];
 
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
+  allPosts.forEach((post) => {
+    allTags.push(...post.tags);
+  });
+
+  const allTagLinks = allTags.map((item) => parameterize(item));
+
+  function removeDuplicates(arr) {
+    return arr.filter((element, index) => arr.indexOf(element) === index);
+  }
+
+  const newArray = removeDuplicates(allTagLinks);
+
+  return newArray.map((tag) => ({
+    slug: tag,
+  }));
+}
+
+export default function Page({ params }: { params: { slug: string } }) {
+  // Find the post for the current page.
+
+  const posts = allPosts.filter((post) =>
+    post.tags.some((tag) => parameterize(tag) === params.slug)
   );
 
-  const elementItems = [];
+  // 404 if the post does not exist.
+  if (!posts) notFound();
 
-  for (let i = 1; i <= pageCount; i++) {
-    elementItems.push(
-      <div
-        className={currentPage == i ? styles.active : ""}
-        onClick={() => setCurrentPage(i)}
-        key={i}
-        style={{ cursor: "pointer", padding: "1rem" }}
-      >
-        <Link href={`/?page=${i}`}>Page {i}</Link>
-      </div>
-    );
-  }
+  // Parse the MDX file via the useMDXComponent hook.
 
   return (
     <>
-      <Hero title="" />
+      <Hero title={`Tag : ${params.slug}`} />
       <main className={styles.main}>
         <h2>Posts</h2>
         <section className={styles.cards}>
-          {posts.slice(firstItem, lastItem).map((post, idx) => (
+          {posts.map((post, idx) => (
             <article className={styles.card} key={idx}>
               <div className={styles.article__right}>
                 <div className={styles.article__title}>
@@ -71,7 +76,6 @@ export default function Home() {
             </article>
           ))}
         </section>
-        <div className={styles.pagination}>{elementItems}</div>
       </main>
     </>
   );

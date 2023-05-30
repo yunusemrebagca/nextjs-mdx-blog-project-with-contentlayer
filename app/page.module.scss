@@ -101,6 +101,12 @@
 }
 
 .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.tag {
   border: 1px solid purple;
   border-radius: 0.5rem;
   display: inline-block;
