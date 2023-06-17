@@ -1,0 +1,121 @@
+@use "../../../styles/breakpoints.scss" as bp;
+
+.content {
+  max-width: 800px;
+  margin-inline: auto;
+  margin-top: 4rem;
+  padding-inline: 1rem;
+}
+
+.paragraph {
+  margin-block: 2rem;
+  line-height: 1.3;
+  & > code {
+    background-color: rgba(0, 0, 0, 0.581);
+    color: white;
+    padding: 0.1rem;
+    padding-inline: 0.3rem;
+    font-family: "Courier New", Courier, monospace;
+    border-radius: 0.2rem;
+  }
+}
+
+.toc {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 300px;
+  background-color: aliceblue;
+  padding: 2rem 1rem 2rem 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.toc__div {
+  position: fixed;
+  left: 1rem;
+  bottom: 4rem;
+  transform: scaleY(0) scaleX(0);
+  transition: all ease 200ms;
+  transform-origin: bottom left;
+  z-index: 10;
+
+  &.active {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+
+.button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  padding-inline: 1rem;
+
+  left: 1rem;
+  bottom: 1rem;
+  width: max-content;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: aliceblue;
+}
+
+.h2 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.h3 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+.img {
+  width: 120%;
+  margin-left: -10%;
+  object-fit: contain;
+  border-radius: 2rem;
+  max-height: 700px;
+
+  @include bp.sm {
+    border-radius: unset;
+  }
+  @include bp.breakpoint(1200px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.a {
+  color: purple;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.ul {
+  list-style-type: none;
+}
+
+.ol {
+  list-style-type: none;
+}
+
+.li {
+  margin-block: 0.5rem;
+  line-height: 1.4;
+}
+
+.pre {
+  line-height: 1.3;
+}
+
+.hr {
+  margin-block: 3rem;
+}
+
+.strong {
+  font-weight: 600;
+}

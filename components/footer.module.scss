@@ -1,0 +1,55 @@
+@use "../styles/variables.scss";
+@use "../styles/breakpoints.scss";
+
+.div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: variables.$color-primary;
+  margin-inline: 8rem;
+  margin-top: 4rem;
+  padding-block: 4rem;
+  padding-inline: 4rem;
+  color: white;
+
+  border-radius: 2rem 2rem 0 0;
+
+  @include breakpoints.lg {
+    padding-inline: 2rem;
+    margin-inline: 4rem;
+  }
+
+  @include breakpoints.md {
+    padding-inline: 1rem;
+    margin-inline: 3rem;
+  }
+  @include breakpoints.sm {
+    padding-inline: 1rem;
+    margin-inline: 1rem;
+  }
+
+  h4 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+    input {
+      padding: 1rem;
+      border-radius: 1rem 0 0 1rem;
+    }
+    button {
+      border-radius: 0 1rem 1rem 0;
+      color: white;
+      padding: 1rem;
+      border: none;
+      background-color: purple;
+    }
+  }
+}

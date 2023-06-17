@@ -59,13 +59,13 @@ export const Header = () => {
             </Link>
           </li>
           <li>
-            <Link href="/">Daily Updates</Link>
+            <Link href="/pages/daily-updates">Daily Updates</Link>
           </li>
           <li>
-            <Link href="/">Tutorials</Link>
+            <Link href="/pages/tutorials">Tutorials</Link>
           </li>
           <li>
-            <Link href="/">Library</Link>
+            <Link href="/pages/library">Library</Link>
           </li>
           {mediumSize && <button className={styles.button}>Subscribe</button>}
         </ul>

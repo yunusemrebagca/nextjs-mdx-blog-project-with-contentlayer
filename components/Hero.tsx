@@ -9,7 +9,6 @@ export const Hero = (props: Props) => {
   return (
     <>
       <div className={styles.hero}>
-        <p>Hello</p>
         <h1>
           {props.title ||
             `Insights about my personal and work life, and the in-betweens`}

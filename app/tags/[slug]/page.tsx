@@ -37,8 +37,12 @@ export default function Page({ params }: { params: { slug: string } }) {
     post.tags.some((tag) => parameterize(tag) === params.slug)
   );
 
+  const sortedPosts = posts.sort((a, b) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
+
   // 404 if the post does not exist.
-  if (!posts) notFound();
+  if (!sortedPosts) notFound();
 
   // Parse the MDX file via the useMDXComponent hook.
 
@@ -48,7 +52,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       <main className={styles.main}>
         <h2>Posts</h2>
         <section className={styles.cards}>
-          {posts.map((post, idx) => (
+          {sortedPosts.map((post, idx) => (
             <article className={styles.card} key={idx}>
               <div className={styles.article__right}>
                 <div className={styles.article__title}>
