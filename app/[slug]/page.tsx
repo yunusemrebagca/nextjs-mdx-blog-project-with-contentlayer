@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { MDXComponents } from "mdx/types";
 import s from "./page.module.scss";
 import parameterize from "parameterize-js";
+import { Metadata } from "next";
 
 import "highlight.js/scss/arta.scss";
 
@@ -12,11 +13,19 @@ import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { Toc } from "@/components/Toc";
 
+type Props = { params: { slug: string } };
+
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post._raw.flattenedPath.split("/").pop(),
   }));
 }
+
+export const generateMetadata = ({ params }: Props): Metadata => {
+  return {
+    title: `${params.slug}`,
+  };
+};
 
 const mdxComponents: MDXComponents = {
   // Override the default <a> element to use the next/link component.
