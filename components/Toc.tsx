@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import parameterize from "parameterize-js";
 import clsx from "clsx";
+import Link from "next/link";
 
 import s from "../app/[slug]/page.module.scss";
 import { useMousedown } from "@/hooks/useMousedown";
@@ -33,14 +34,14 @@ export const Toc = ({ slug, headings }) => {
                 key={idx}
                 style={heading.level == 3 ? { marginLeft: "1rem" } : {}}
               >
-                <a
+                <Link
                   href={`/${slug}#${parameterize(heading.text)}`}
                   onClick={() => {
                     setToggleToc(false);
                   }}
                 >
                   {heading.text}
-                </a>
+                </Link>
               </li>
             );
           })}
