@@ -34,14 +34,14 @@ export const Toc = ({ slug, headings }) => {
                 key={idx}
                 style={heading.level == 3 ? { marginLeft: "1rem" } : {}}
               >
-                <Link
-                  href={`/${slug}#${parameterize(heading.text)}`}
+                <a
+                  href={`#${parameterize(heading.text)}`}
                   onClick={() => {
                     setToggleToc(false);
                   }}
                 >
                   {heading.text}
-                </Link>
+                </a>
               </li>
             );
           })}
